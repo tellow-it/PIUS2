@@ -3,11 +3,10 @@ import datetime
 from sqlalchemy import Column, Integer, String, Boolean, DateTime, ForeignKey
 from sqlalchemy.orm import relationship
 
-from db.session import Base
+from db.base_class import Base
 
 
 class Address(Base):
-    __tablename__ = 'address'
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     name = Column(String, nullable=False)
     city = Column(String, nullable=False)
