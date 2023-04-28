@@ -2,10 +2,8 @@ from typing import List
 
 from fastapi import APIRouter
 from sqlalchemy.orm import Session
-from fastapi import Depends, HTTPException, status
-
+from fastapi import Depends
 from db.session import get_db
-from db.models.addresses import Address
 from schemas.addresses import AddressCreate, ShowAddress
 from db.repository.addresses import create_new_address
 

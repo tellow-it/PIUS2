@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
+from fastapi_pagination import add_pagination
 
 from apis.base import api_router
 from webapps.base import web_router
@@ -28,6 +29,7 @@ def start_application():
     application = FastAPI(title=settings.PROJECT_NAME, version=settings.PROJECT_VERSION)
     configure_static(application)
     include_routers(application)
+    add_pagination(application)
     create_tables()
     return application
 

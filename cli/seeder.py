@@ -1,3 +1,7 @@
+import sys
+
+sys.path.append(r'C:\Users\mrtik\PycharmProjects\PIUS2')
+
 import random
 from faker import Faker
 from core.config import settings

@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from sqlalchemy.orm import Session
 from fastapi import Depends
-
+from fastapi_pagination import Page, paginate
 from schemas.customers import CustomerCreate, ShowCustomer
 from db.session import get_db
 from db.repository.customers import create_new_customer, list_customers
@@ -15,7 +15,13 @@ async def create_customer(customer: CustomerCreate, db: Session = Depends(get_db
     return customer
 
 
-@router.get('/customers')
+@router.get('/customers', response_model=ShowCustomer)
 async def get_customers(db: Session = Depends(get_db)):
     customers = list_customers(db=db)
     return customers
+
+
+@router.get('/paginate_customers', response_model=Page[ShowCustomer])
+async def get_customer_pagination(db: Session = Depends(get_db)):
+    customers = list_customers(db=db)
+    return paginate(customers)
