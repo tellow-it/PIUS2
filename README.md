@@ -68,3 +68,28 @@ PIUS2/
         ├── __init__.py
         └── route_customers.py
  ```
+ ## Technologies
+* Fast api
+* Jinja2
+* REST API
+* Uvicorn
+* Postgres
+* SQLAlchemy
+* Psycopg2
+## Start program
+* создание виртуального кружения 
+#### python -m venv .venv
+* активация окружения
+#### .venv/Scripts/activate
+* установка зависимостей
+#### pip install -r requirments.txt
+* запустить сервер 
+#### uvicorn main:app --reload
+## Запуск заполения базы 100 элементами
+```
+python cli\seeder.py
+```
+## Получение количества адресов для кастомера по его id
+```
+python cli\count_addresses.py {id}
+```
