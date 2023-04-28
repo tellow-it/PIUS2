@@ -1,0 +1,41 @@
+{% extends "shared/base.html" %}
+
+
+{% block title %}
+<title>Customers</title>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1 class="display-5">Table Customers</h1>
+        </div>
+    </div>
+    <div class="row">
+        <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Surname</th>
+            <th scope="col">Email</th>
+            <th scope="col">Telephone</th>
+            <th scope="col">Status block</th>
+            <th scope="col">Date creation</th>
+            <th scope="col">Detail View</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for customer in customers %}
+            {% with obj=customer %}
+      		{% include "components/table_customers.html" %}
+    	  {% endwith %}
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>
+
+</div>
+
+{% endblock %} 

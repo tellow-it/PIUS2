@@ -13,6 +13,6 @@ router = APIRouter()
 
 
 @router.post("/create-address/", response_model=ShowAddress)
-def create_address(address: AddressCreate, customer_id: int, db: Session = Depends(get_db)):
+async def create_address(address: AddressCreate, customer_id: int, db: Session = Depends(get_db)):
     address = create_new_address(address=address, db=db, customer_id=customer_id)
     return address

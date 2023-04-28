@@ -2,6 +2,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy import and_
 from schemas.addresses import AddressCreate
 from db.models.addresses import Address
+from sqlalchemy import desc
 
 
 def create_new_address(address: AddressCreate, db: Session, customer_id: int):
@@ -15,3 +16,8 @@ def create_new_address(address: AddressCreate, db: Session, customer_id: int):
         return address_object
     else:
         raise Exception('Not unique address')
+
+
+def addresses_of_customer(customer_id: int, db: Session):
+    addresses = db.query(Address).filter(Address.customer_id == customer_id).order_by(desc(Address.date_posted)).all()
+    return addresses

@@ -1,0 +1,60 @@
+{% extends "shared/base.html" %}
+
+{% block title %}
+<title>Customers detail</title>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1 class="display-5">Customer detail</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="card mb-4  mt-3">
+                <div class="card-body">
+                    <p><b>ID: </b>{{ customer.id }}</p>
+                    <p><b>Name: </b>{{ customer.name}}</p>
+                    <p><b>Surname: </b>{{ customer.surname }}</p>
+                    <p><b>Email: </b>{{ customer.email }}</p>
+                    <p><b>Telephone: </b>{{ customer.telephone }}</p>
+                    <p><b>Status block: </b>{{ customer.is_block }}</p>
+                    <p><b>Date creation: </b>{{ customer.registered_at }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <h1 class="display-5">Addresses</h1>
+            </div>
+        </div>
+        <div class="row">
+            <table class="table">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">City</th>
+                    <th scope="col">Street</th>
+                    <th scope="col">House</th>
+                    <th scope="col">Floor</th>
+                    <th scope="col">Apart</th>
+                    <th scope="col">Code</th>
+                    <th scope="col">Date posted</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for address in addresses %}
+                {% with obj=address %}
+                {% include "components/table_addresses.html" %}
+                {% endwith %}
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
