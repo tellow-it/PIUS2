@@ -1,4 +1,6 @@
-from sqlalchemy import and_
+from typing import List
+
+from sqlalchemy import and_, or_
 from sqlalchemy.orm import Session
 
 from schemas.customers import CustomerCreate
@@ -25,10 +27,9 @@ def retrieve_customer(customer_id: int, db: Session):
     return db.query(Customer).filter(Customer.id == customer_id).one_or_none()
 
 
-def retrieve_customer_by_filter(name: str, surname: str, email: str, telephone: str, is_block: bool, db: Session):
-    filtering_customers = db.query(Customer).filter(and_(Customer.name == name,
-                                                         Customer.surname == surname,
-                                                         Customer.email == email,
-                                                         Customer.telephone == telephone,
-                                                         Customer.is_block == is_block)).all()
+def retrieve_customer_by_filter(dict_args: dict, db: Session):
+    fields_sort = []
+    for key, value in dict_args.items():
+        fields_sort.append(getattr(Customer, key) == value)
+    filtering_customers = db.query(Customer).filter(*fields_sort).all()
     return filtering_customers

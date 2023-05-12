@@ -1,5 +1,5 @@
 from typing import Optional
-
+from db.models.customers import Customer
 from fastapi import APIRouter
 from fastapi import Request, Depends
 from fastapi.templating import Jinja2Templates
@@ -36,12 +36,24 @@ async def get_customers_by_filter(request: Request,
                                   telephone: Optional[str] = None,
                                   is_block: Optional[bool] = None,
                                   db: Session = Depends(get_db)):
+
     if is_block == 'True':
         is_block = True
     elif is_block == 'False':
         is_block = False
-    customers = retrieve_customer_by_filter(name=name, surname=surname, email=email, telephone=telephone,
-                                            is_block=is_block, db=db)
+
+    fields_sort = dict()
+    if not name == '':
+        fields_sort["name"] = name
+    if not surname == '':
+        fields_sort["surname"] = surname
+    if not email == '':
+        fields_sort["email"] = email
+    if not telephone == '':
+        fields_sort["telephone"] = telephone
+    if is_block is not None and not is_block == '':
+        fields_sort["is_block"] = is_block
+    customers = retrieve_customer_by_filter(dict_args=fields_sort, db=db)
     return templates.TemplateResponse(
         "general_pages/customers.html", {"request": request, "customers": customers}
     )
